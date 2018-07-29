@@ -131,7 +131,7 @@ void iteratePararell( TIteratorA beginA, TIteratorA endA, TIteratorB beginB, TIt
 		throw std::range_error( "first range is not equal to the second range" );
 
 	while ( beginA != endA )
-		lambda( *(beginA++), *(beginB++) );
+		lambda( *( beginA++ ), *( beginB++ ) );
 }
 
 template <typename T, typename ...TArgs>
@@ -149,6 +149,6 @@ bool anyOf( const T& t, TArgs&& ...args )
 template <typename T, typename ...TArgs>
 bool noneOf( const T& t, TArgs&& ...args )
 {
-	return !anyOf(t, std::forward<TArgs>(args)...)
+	return !anyOf( t, std::forward<TArgs>( args )... )
 }
 }
