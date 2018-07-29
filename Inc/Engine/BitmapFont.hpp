@@ -19,7 +19,8 @@ class BitmapFont final
 public:
 	bool loadFromFile( const std::string& path );
 
-	void setGlyphSize( const Vec2i& size );
+	// @hack - it has to be const to fit into BasicAssetsHolder. 
+	void setGlyphSize( const Vec2i& size ) const;
 
 	const sf::Texture& getTexture() const;
 	Vec2i getGlyphSize() const;
@@ -27,6 +28,6 @@ public:
 
 private:
 	sf::Texture texture;
-	Vec2i glyphSize{ -1, -1 };
+	mutable Vec2i glyphSize{ -1, -1 };
 };
 }

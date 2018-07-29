@@ -102,6 +102,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\Engine\All.hpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Inc\Engine\Assets.hpp" />
     <ClInclude Include="Inc\Engine\AudioHolder.hpp" />
     <ClInclude Include="Inc\Engine\BasicAssetHolder.hpp" />

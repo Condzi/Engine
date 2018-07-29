@@ -14,7 +14,7 @@ bool con::BitmapFont::loadFromFile( const std::string& path )
 	return texture.loadFromFile( path );
 }
 
-void BitmapFont::setGlyphSize( const Vec2i& size )
+void BitmapFont::setGlyphSize( const Vec2i& size ) const
 {
 	glyphSize = size;
 }
@@ -31,6 +31,11 @@ Vec2i BitmapFont::getGlyphSize() const
 
 Vec2i BitmapFont::getGlyph( uint32_t codePoint ) const
 {
+	if ( texture.getSize() == Vec2u{ 0,0 } ) {
+		Global.Logger.log( con::LogPriority::Error, "BitmapFont isn't loaded." );
+		DebugBreak();
+		return { 0,0 };
+	}
 	if ( glyphSize.x < 0 || glyphSize.y < 0 ) {
 		Global.Logger.log( con::LogPriority::Error, "Glyph size is not set in bitmap font!" );
 		DebugBreak();
@@ -40,9 +45,6 @@ Vec2i BitmapFont::getGlyph( uint32_t codePoint ) const
 	const auto textureSize = texture.getSize();
 	const auto cols = textureSize.x / glyphSize.x;
 	const auto rows = textureSize.y / glyphSize.y;
-
-	// cancel out control characters
-	// codePoint -= 32;
 
 	if ( codePoint < cols * rows )
 		return Vec2i( glyphSize.x * ( codePoint % cols ), glyphSize.y * ( codePoint / cols ) );
