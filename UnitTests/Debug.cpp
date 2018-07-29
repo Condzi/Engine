@@ -9,5 +9,5 @@
 
 TEST_CASE( "Global Logger", "[DEBUG]" )
 {
-	con::Global.GlobalLogger.log( con::LogPriority::Info, "Global logger!" );
+	con::Global.Logger.log( con::LogPriority::Info, "Global logger!" );
 }

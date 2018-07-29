@@ -27,7 +27,7 @@ GlobalClass::GlobalClass() :
 	SceneStack( *( new SceneStackClass{} ) ),
 	Input( *( new InputClass{} ) ),
 	GUI( *( new GUIClass{} ) ),
-	GlobalLogger( *( new GlobalLoggerClass{} ) )
+	Logger( *( new GlobalLoggerClass{} ) )
 {}
 
 // Delete some pts to call their destructors.
