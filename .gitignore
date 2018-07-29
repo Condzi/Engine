@@ -1,0 +1,17 @@
+*.dll
+*.pdb
+*.filters
+
+log.txt
+
+binaries/
+intermediates/
+.vs/
+settings.ini
+
+*.dll
+Dependencies/SFML
+Dependencies/TGUI
+Inc/SFML
+Inc/TGUI
+Lib/
