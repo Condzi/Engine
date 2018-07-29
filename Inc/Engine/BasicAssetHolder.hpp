@@ -7,6 +7,7 @@
 
 #include "Engine/EnginePCH.hpp"
 #include "Engine/Debug.hpp"
+#include "Engine/BitmapFont.hpp"
 
 namespace con::priv
 {
@@ -71,6 +72,16 @@ private:
 	std::string loggerName() const override
 	{
 		return "Font Holder";
+	}
+};
+
+class BitmapFontHolder final :
+	public BasicAssetHolder<BitmapFont>
+{
+private:
+	std::string loggerName() const override
+	{
+		return "Bitmap Font Holder";
 	}
 };
 }

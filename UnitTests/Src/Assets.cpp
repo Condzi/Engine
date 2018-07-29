@@ -135,7 +135,7 @@ TEST_CASE( "Bitmap Text", "[Assets]" )
 	font.loadFromFile( "data/vincent.png" );
 	font.setGlyphSize( { 8,8 } );
 
-	con::BitmapText text( "Hello, World!", font, { 200,200 }, sf::Color::Red );
+	con::BitmapText text( "PRESS SPACE IF YOU CAN SEE ME! \1", font, { 200,200 }, sf::Color::Red );
 
 	auto& gw = con::Global.GameWindow;
 	gw.create( { 800,600 }, "" );
@@ -146,8 +146,10 @@ TEST_CASE( "Bitmap Text", "[Assets]" )
 			if ( ev.type == sf::Event::KeyPressed ) {
 				if ( ev.key.code == sf::Keyboard::Space )
 					gw.close();
-				else
+				else {
+					gw.close();
 					REQUIRE( false );
+				}
 			}
 
 		gw.clear();

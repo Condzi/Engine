@@ -18,6 +18,8 @@ public:
 
 	TextureHolder Texture;
 	FontHolder Font;
+	// @Note: Doens't have default font. (issue with raw literals)
+	BitmapFontHolder BitmapFonts; // @ToDo change names of all things here to plural. This one is plural to avoid amibiouty with BitmapFont class.
 	SoundHolder Sound;
 	MusicHolder Music;
 	SettingsClass Settings;

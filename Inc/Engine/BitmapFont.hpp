@@ -3,6 +3,11 @@
 	https://github.com/condzi
 */
 
+/*
+Based on code by @dabbertorres:
+https://github.com/dabbertorres/sfml-bitmap-text
+*/
+
 #pragma once
 
 namespace con
