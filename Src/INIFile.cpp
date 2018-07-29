@@ -170,12 +170,10 @@ void INIFile::serialize( std::vector<std::string>& target )
 	target.clear();
 
 	for ( auto& it : sections ) {
-		target.emplace_back( ConvertTo<std::string>( "[", it.first, "]" ) );
+		target.emplace_back( ConvertTo<std::string>( "\n[", it.first, "]" ) );
 
 		for ( auto& pair : it.second )
 			target.emplace_back( ConvertTo<std::string>( pair.name, " = ", pair.value ) );
-
-		target.emplace_back( "\n" );
 	}
 }
 }
