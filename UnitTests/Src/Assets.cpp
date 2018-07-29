@@ -11,6 +11,7 @@
 
 #include <Engine/Assets.hpp>
 #include <Engine/INIFile.hpp>
+#include <Engine/BitmapFont.hpp>
 
 TEST_CASE( "INI File Reader (aka Settings)", "[Assets]" )
 {
@@ -105,4 +106,19 @@ TEST_CASE( "IAudioHolder (sf::Music)", "[Assets]" )
 	// doesn't return bool but we can check "isPlaying" to see is it working
 	music.play( "test" );
 	REQUIRE( music.isPlaying() == true );
+}
+
+TEST_CASE( "Bitmap Font", "[Assets]" )
+{
+	con::BitmapFont font;
+	REQUIRE( font.loadFromFile( "data/vincent.png" ) );
+	font.setGlyphSize( { 8,8 } );
+
+	auto g = font.getGlyph( 'a' );
+	REQUIRE( g.x == 0 );
+	REQUIRE( g.y == static_cast<int>( 'a' ) * 8 );
+
+	g = font.getGlyph( 'B' );
+	REQUIRE( g.x == 0 );
+	REQUIRE( g.y == static_cast<int>( 'B' ) * 8 );
 }
