@@ -13,6 +13,11 @@
 #include <Engine/INIFile.hpp>
 #include <Engine/BitmapFont.hpp>
 
+// @For BitmapText
+#include "Engine/Renderer.hpp"
+#include <Engine/BitmapText.hpp>
+
+
 TEST_CASE( "INI File Reader (aka Settings)", "[Assets]" )
 {
 	static constexpr const char* TEST_INI_PATH = "Data/test.ini";
@@ -121,4 +126,32 @@ TEST_CASE( "Bitmap Font", "[Assets]" )
 	g = font.getGlyph( 'B' );
 	REQUIRE( g.x == 0 );
 	REQUIRE( g.y == static_cast<int>( 'B' ) * 8 );
+}
+
+// @ToDo: Maybe create 'Visual' file?
+TEST_CASE( "Bitmap Text", "[Assets]" )
+{
+	con::BitmapFont font;
+	font.loadFromFile( "data/vincent.png" );
+	font.setGlyphSize( { 8,8 } );
+
+	con::BitmapText text( "Hello, World!", font, { 200,200 }, sf::Color::Red );
+
+	auto& gw = con::Global.GameWindow;
+	gw.create( { 800,600 }, "" );
+	sf::Event ev;
+
+	while ( gw.isOpen() ) {
+		while ( gw.pollEvent( ev ) )
+			if ( ev.type == sf::Event::KeyPressed ) {
+				if ( ev.key.code == sf::Keyboard::Space )
+					gw.close();
+				else
+					REQUIRE( false );
+			}
+
+		gw.clear();
+		text.render( gw );
+		gw.display();
+	}
 }

@@ -19,6 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\BitmapFont.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Src\BitmapText.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Src\FixedArray2D.cpp">
       <SubType>
       </SubType>
@@ -97,6 +105,14 @@
     <ClInclude Include="Inc\Engine\Assets.hpp" />
     <ClInclude Include="Inc\Engine\AudioHolder.hpp" />
     <ClInclude Include="Inc\Engine\BasicAssetHolder.hpp" />
+    <ClInclude Include="Inc\Engine\BitmapFont.hpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Inc\Engine\BitmapText.hpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Inc\Engine\Debug.hpp" />
     <ClInclude Include="Inc\Engine\Drawable.hpp" />
     <ClInclude Include="Inc\Engine\EnginePCH.hpp" />
