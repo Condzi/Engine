@@ -26,7 +26,8 @@ GlobalClass::GlobalClass() :
 	Assets( *( new AssetsClass{} ) ),
 	SceneStack( *( new SceneStackClass{} ) ),
 	Input( *( new InputClass{} ) ),
-	GUI( *( new GUIClass{} ) )
+	GUI( *( new GUIClass{} ) ),
+	GlobalLogger( *( new GlobalLoggerClass{} ) )
 {}
 
 // Delete some pts to call their destructors.

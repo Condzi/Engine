@@ -14,6 +14,7 @@ namespace con::priv
 {
 struct GlobalClass final
 {
+	class GlobalLoggerClass& GlobalLogger;
 	class UpdaterClass& _Updater;
 	class GameClass& Game;
 	sf::RenderWindow& GameWindow;

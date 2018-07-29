@@ -7,9 +7,9 @@
 
 #include "Engine/Debug.hpp"
 
-namespace con
+namespace con::priv
 {
-const char* con::ILogger::logPriorityToString( LogPriority priority ) const noexcept
+const char* ILoggerBase::logPriorityToString( LogPriority priority ) const noexcept
 {
 	switch ( priority ) {
 	case LogPriority::Info:	return "INFO";
@@ -20,7 +20,7 @@ const char* con::ILogger::logPriorityToString( LogPriority priority ) const noex
 	return "";
 }
 
-ILogger::LogFile::~LogFile()
+LogFile::~LogFile()
 {
 	std::experimental::filesystem::remove( { LOG_FILE_PATH } );
 	
@@ -29,7 +29,7 @@ ILogger::LogFile::~LogFile()
 	content.clear();
 }
 
-void ILogger::LogFile::append( const std::string& message )
+void LogFile::append( const std::string& message )
 {
 	static LogFile file;
 	file.content.emplace_back( message );

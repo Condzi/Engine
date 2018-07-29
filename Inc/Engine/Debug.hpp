@@ -26,9 +26,23 @@ enum class LogPriority
 	Info, Warning, Error
 };
 
-class ILogger
+namespace priv
 {
-protected:
+class LogFile final
+{
+private:
+	static constexpr const char* LOG_FILE_PATH = "log.txt";
+	std::vector<std::string> content;
+
+	~LogFile();
+
+public:
+	static void append( const std::string& message );
+};
+
+class ILoggerBase
+{
+public:
 	virtual std::string loggerName() const = 0;
 
 	template <typename ...TArgs>
@@ -47,18 +61,24 @@ protected:
 	}
 
 private:
-	class LogFile
-	{
-	private:
-		static constexpr const char* LOG_FILE_PATH = "log.txt";
-		std::vector<std::string> content;
-
-		~LogFile();
-
-	public:
-		static void append( const std::string& message );
-	};
-
 	const char* logPriorityToString( LogPriority priority ) const noexcept;
+};
+}
+
+class ILogger : 
+	protected priv::ILoggerBase
+{};
+}
+
+namespace con::priv
+{
+class GlobalLoggerClass final :
+	public ILoggerBase
+{
+public:
+	std::string loggerName() const override
+	{
+		return "Global";
+	}
 };
 }
