@@ -17,7 +17,7 @@ namespace con
 {
 class BitmapText final :
 	public sf::Transformable,
-	public IDrawable
+	public sf::Drawable
 {
 public:
 	BitmapText() = default;
@@ -34,8 +34,7 @@ public:
 	RectF getLocalBounds() const;
 	RectF getGlobalBounds() const;
 
-	// For unit tests. Normally should be private.
-	void render( sf::RenderWindow& window ) override;
+	void draw( sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
 	inline static constexpr size_t TAB_WIDTH = 4; // In characters

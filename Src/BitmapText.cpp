@@ -81,15 +81,14 @@ RectF BitmapText::getGlobalBounds() const
 	return getTransform().transformRect( getLocalBounds() );
 }
 
-void BitmapText::render( sf::RenderWindow& window )
+void BitmapText::draw( sf::RenderTarget & target, sf::RenderStates states ) const
 {
 	if ( !font )
 		return;
 
-	sf::RenderStates states;
 	states.transform *= getTransform();
 	states.texture = &font->getTexture();
-	window.draw( vertices, states );
+	target.draw( vertices, states );
 }
 
 void BitmapText::update()

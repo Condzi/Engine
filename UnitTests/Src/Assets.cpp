@@ -153,7 +153,7 @@ TEST_CASE( "Bitmap Text", "[Assets]" )
 			}
 
 		gw.clear();
-		text.render( gw );
+		gw.draw( text  );
 		gw.display();
 	}
 }
