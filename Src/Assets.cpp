@@ -12,8 +12,8 @@ AssetsClass::AssetsClass()
 {
 	setDefaultTexture();
 	setDefaultFont();
-	setDefaultBitmapFont();
 }
+
 void AssetsClass::setDefaultTexture()
 {
 	sf::Image img;
