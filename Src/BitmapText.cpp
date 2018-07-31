@@ -103,7 +103,7 @@ void BitmapText::draw( sf::RenderTarget & target, sf::RenderStates states ) cons
 
 void BitmapText::update()
 {
-	colors.resize( string.size() );
+	colors.resize( string.size(), sf::Color::White );
 
 	if ( !font )
 		return;
