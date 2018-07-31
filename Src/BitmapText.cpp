@@ -10,8 +10,7 @@ namespace con
 {
 BitmapText::BitmapText( const std::string& string_, const BitmapFont& font_, const Vec2f& pos, sf::Color color_ ) :
 	string( string_ ),
-	font( &font_ ),
-	color( color_ )
+	font( &font_ )
 {
 	setPosition( pos );
 	update();
@@ -29,9 +28,15 @@ void BitmapText::setFont( const BitmapFont& font_ )
 	update();
 }
 
-void BitmapText::setColor( sf::Color color_ )
+void BitmapText::setColor( sf::Color color, size_t idx, size_t count )
 {
-	color = color_;
+	std::fill( colors.begin() + idx, colors.begin() + idx + count, color );
+	update();
+}
+
+void BitmapText::setColors( sf::Color color )
+{
+	std::fill( colors.begin(), colors.end(), color );
 	update();
 }
 
@@ -45,9 +50,14 @@ const BitmapFont * BitmapText::getFont() const
 	return font;
 }
 
-sf::Color BitmapText::getColor() const
+sf::Color BitmapText::getColor( size_t index ) const
 {
-	return color;
+	return colors.at( index );
+}
+
+const std::vector<sf::Color>& BitmapText::getColors() const
+{
+	return colors;
 }
 
 RectF BitmapText::getLocalBounds() const
@@ -93,6 +103,8 @@ void BitmapText::draw( sf::RenderTarget & target, sf::RenderStates states ) cons
 
 void BitmapText::update()
 {
+	colors.resize( string.size() );
+
 	if ( !font )
 		return;
 
@@ -131,6 +143,7 @@ void BitmapText::update()
 		default:
 		{
 			auto* vert = &vertices[vertIdx * 4];
+			auto color = colors.at( vertIdx );
 
 			auto texCoord = static_cast<Vec2f>( font->getGlyph( c ) );
 
