@@ -143,7 +143,7 @@ void BitmapText::update()
 		default:
 		{
 			auto* vert = &vertices[vertIdx * 4];
-			auto color = colors.at( vertIdx );
+			auto color = colors.at( i );
 
 			auto texCoord = static_cast<Vec2f>( font->getGlyph( c ) );
 
