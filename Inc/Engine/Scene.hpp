@@ -14,6 +14,9 @@ class Scene :
 	public ILogger
 {
 public:
+	// Same as priv::SceneFactory::SceneID
+	using SceneID = std::string_view;
+
 	RULE_OF_FIVE( Scene );
 	virtual ~Scene() = default;
 
@@ -24,13 +27,15 @@ public:
 		Unloaded
 	};
 
-	std::string tag;
+	const SceneID Id = "unregistred";
 
 	virtual void onPush() {}
 	virtual void onPop() {}
 	virtual void onEnable() {}
 	virtual void onDisable() {}
 	virtual void onUpdate() {}
+
+	void _setId( SceneID Id_ );
 
 	template <typename TEntity, typename ...TArgs>
 	TEntity& spawn( TArgs&& ...args )

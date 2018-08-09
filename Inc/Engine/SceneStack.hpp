@@ -15,7 +15,7 @@ class SceneFactory final :
 {
 public:
 	using FactoryFunction = std::function<std::unique_ptr<Scene>()>;
-	using SceneID = int16_t;
+	using SceneID = std::string_view;
 
 	std::unordered_map<SceneID, FactoryFunction> functions;
 
@@ -47,16 +47,16 @@ private:
 	struct Action final
 	{
 		Operation operation = Operation::Push;
-		SceneID scene = 0;
+		SceneID scene;
 	};
 
 public:
-	template <typename TScene, typename ...TArgs>
-	void registerScene( SceneID id, TArgs&& ...args )
+	template <typename TScene>
+	void registerScene( SceneID id )
 	{
 		static_assert( std::is_base_of_v<Scene, TScene> );
 		factory.functions[id] = [&] {
-			return std::make_unique<TScene>( std::forward<TArgs>( args )... );
+			return std::make_unique<TScene>();
 		};
 	}
 

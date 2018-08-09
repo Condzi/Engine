@@ -12,8 +12,10 @@ namespace con::priv
 std::unique_ptr<Scene> SceneFactory::createScene( SceneID id )
 {
 	auto result = functions.find( id );
-	if ( result != functions.end() )
+	if ( result != functions.end() ) {
+		result->second()->_setId( id );
 		return result->second();
+	}
 
 	log( LogPriority::Error, "no scene of id \"", id, "\"." );
 	return nullptr;

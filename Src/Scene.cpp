@@ -9,6 +9,11 @@
 
 namespace con
 {
+void Scene::_setId( SceneID Id_ )
+{
+	const_cast<std::string_view&>( Id ) = Id_;
+}
+
 void Scene::Enable()
 {
 	switch ( status ) {
@@ -73,7 +78,7 @@ std::string Scene::loggerName() const
 		}
 	};
 
-	return ConvertTo<std::string>( tag, ":", getStatusAsString( status ) );
+	return ConvertTo<std::string>( Id, ":", getStatusAsString( status ) );
 }
 
 void Scene::disableEntities()

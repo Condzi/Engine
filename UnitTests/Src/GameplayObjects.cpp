@@ -299,10 +299,10 @@ TEST_CASE( "SceneStack", "[Gameplay Objects]" )
 	auto& ss = con::Global.SceneStack;
 	ExampleSceneA::testVar = ExampleSceneB::testVar = 0;
 
-	ss.registerScene<ExampleSceneA>( 0 );
-	ss.registerScene<ExampleSceneB>( 1 );
+	ss.registerScene<ExampleSceneA>( "a" );
+	ss.registerScene<ExampleSceneB>( "b" );
 
-	ss.push( 0 );
+	ss.push( "a" );
 	con::Global._Updater.update();
 	REQUIRE( ExampleSceneA::testVar == 2 );
 	REQUIRE( ExampleSceneB::testVar == 0 );
@@ -310,7 +310,7 @@ TEST_CASE( "SceneStack", "[Gameplay Objects]" )
 	con::Global._Updater.update();
 	REQUIRE( ExampleSceneA::testVar == 3 );
 	REQUIRE( ExampleSceneB::testVar == 0 );
-	ss.push( 1 );
+	ss.push( "b" );
 	con::Global._Updater.update();
 	REQUIRE( ExampleSceneA::testVar == 3 );
 	REQUIRE( ExampleSceneB::testVar == 2 );
