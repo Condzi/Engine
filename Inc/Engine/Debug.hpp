@@ -60,12 +60,48 @@ public:
 			log( priority, std::forward<TArgs>( args )... );
 	}
 
+	template <typename ...TArgs>
+	void print( LogPriority priority, const char* src, TArgs&& ...args )
+	{
+		std::string message;
+		if constexpr ( sizeof...( TArgs ) > 0 )
+		{
+			message.reserve( std::strlen( src ) * 4 );
+			printImpl( message, src, std::forward<TArgs>( args )... );
+		} else
+			message = src;
+
+		message = ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ", message );
+		LogFile::append( message );
+		std::puts( message.c_str() );
+	}
+
 private:
+	template <typename T, typename ...TArgs>
+	void printImpl( std::string& buffer, const char* src, T&& arg, TArgs&&... args )
+	{
+		while ( *src ) {
+			if ( *src == '%' ) {
+				buffer += ConvertTo<std::string>( std::forward<T>( arg ) );
+				++src;
+
+				if constexpr ( sizeof...( TArgs ) > 0 )
+					PrintImpl( buffer, src, std::forward<TArgs>( args )... );
+
+				break;
+			} else {
+				buffer += *src;
+
+				++src;
+			}
+
+		}
+	}
 	const char* logPriorityToString( LogPriority priority ) const noexcept;
 };
 }
 
-class ILogger : 
+class ILogger :
 	protected priv::ILoggerBase
 {};
 }

@@ -11,3 +11,9 @@ TEST_CASE( "Global Logger", "[DEBUG]" )
 {
 	con::Global.Logger.log( con::LogPriority::Info, "Global logger!" );
 }
+
+TEST_CASE( "print", "[DEBUG]" )
+{
+	con::Global.Logger.print( con::LogPriority::Info, "Test" );
+	con::Global.Logger.print( con::LogPriority::Info, "Test2 = %", "Test2" );
+}
