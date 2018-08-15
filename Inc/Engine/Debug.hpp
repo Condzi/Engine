@@ -86,7 +86,7 @@ private:
 				++src;
 
 				if constexpr ( sizeof...( TArgs ) > 0 )
-					PrintImpl( buffer, src, std::forward<TArgs>( args )... );
+					printImpl( buffer, src, std::forward<TArgs>( args )... );
 
 				break;
 			} else {
