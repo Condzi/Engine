@@ -131,11 +131,10 @@ TEST_CASE( "Bitmap Font", "[Assets]" )
 // @ToDo: Maybe create 'Visual' file?
 TEST_CASE( "Bitmap Text", "[Assets]" )
 {
-	con::BitmapFont font;
-	font.loadFromFile( "data/vincent.png" );
-	font.setGlyphSize( { 8,8 } );
-
+	const auto& font = con::Global.Assets.BitmapFonts.getFallback();
 	con::BitmapText text( "Red_Green_Blue_| press Space", font, { 200,200 }, sf::Color::Red );
+	sf::Sprite fontSprite;
+	fontSprite.setTexture( font.getTexture() );
 
 	text.setColors( sf::Color::Cyan );
 	text.setColor( sf::Color::Red, 0, 3 );
@@ -158,6 +157,7 @@ TEST_CASE( "Bitmap Text", "[Assets]" )
 			}
 
 		gw.clear();
+		gw.draw( fontSprite );
 		gw.draw( text );
 		gw.display();
 	}

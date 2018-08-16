@@ -18,15 +18,15 @@ public:
 
 	TextureHolder Textures;
 	FontHolder Fonts;
-	// @Note: Doesn't have default font. (issue with raw literals)
 	BitmapFontHolder BitmapFonts;
 	SoundHolder Sound;
 	MusicHolder Music;
 	SettingsClass Settings;
 
 private:
-	void setDefaultTexture();
+	void setFallbackTexture();
 	// Probably won't be used because TGUI already has it default font.
-	void setDefaultFont();
+	void setFallbackFont();
+	void setFallbackBitmapFont();
 };
 }
