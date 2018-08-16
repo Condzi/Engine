@@ -49,31 +49,47 @@ Vec2i InputClass::getMousePosition() const
 void InputClass::_dispatchEvents()
 {
 	using EventType = sf::Event::EventType;
-	static auto keyToInt = []( auto key ) {
-		return ConvertTo<uint8_t>( key );
-	};
 
 	clearStates();
 
 	sf::Event event;
 	while ( Global.GameWindow.pollEvent( event ) ) {
-		if ( event.type == EventType::Closed )
+		switch ( event.type ) {
+		case EventType::Closed:
+		{
 			Global.ExitGame = true;
-		else if ( event.type == EventType::KeyReleased )
-			keyboardKeys.at( keyToInt( event.key.code ) ) = KeyState::Up;
-		else if ( event.type == EventType::KeyPressed )
-			keyboardKeys.at( keyToInt( event.key.code ) ) = KeyState::Down;
-		else if ( event.type == EventType::MouseButtonReleased )
-			mouseButtons.at( keyToInt( event.mouseButton.button ) ) = KeyState::Up;
-		else if ( event.type == EventType::MouseButtonPressed )
-			mouseButtons.at( keyToInt( event.mouseButton.button ) ) = KeyState::Down;
-		else if ( event.type == EventType::Resized ) {
+			break;
+		}
+		case EventType::KeyReleased:
+		{
+			keyboardKeys.at( event.key.code ) = KeyState::Up;
+			break;
+		}
+		case EventType::KeyPressed:
+		{
+			keyboardKeys.at( event.key.code ) = KeyState::Down;
+			break;
+		}
+		case EventType::MouseButtonReleased:
+		{
+			mouseButtons.at( event.mouseButton.button ) = KeyState::Up;
+			break;
+		}
+		case EventType::MouseButtonPressed:
+		{
+			mouseButtons.at( event.mouseButton.button ) = KeyState::Down;
+			break;
+		}
+		case EventType::Resized:
+		{
 			auto width = ConvertTo<float32_t>( event.size.width );
 			auto height = ConvertTo<float32_t>( event.size.height );
 
 			sf::View updatedView( RectF( 0, 0, width, height ) );
 			Global.GameWindow.setView( updatedView );
 			Global.GUI.setView( updatedView );
+			break;
+		}
 		}
 
 		Global.GUI.handleEvent( event );
