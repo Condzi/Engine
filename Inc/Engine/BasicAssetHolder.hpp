@@ -36,22 +36,22 @@ public:
 			return it->second;
 		else {
 			log( LogPriority::Warning, "can't find \"", name, "\"." );
-			return default;
+			return fallback;
 		}
 	}
 
-	void _setDefault( TAsset&& asset )
+	void _setFallback( TAsset&& asset )
 	{
-		default = std::move( asset );
+		fallback = std::move( asset );
 	}
 
-	const TAsset& getDefault() const
+	const TAsset& getFallback() const
 	{
-		return default;
+		return fallback;
 	}
 
 private:
-	TAsset default;
+	TAsset fallback;
 	std::unordered_map<std::string, TAsset> assets;
 };
 

@@ -72,7 +72,7 @@ TEST_CASE( "Basic Asset Holder (sf::Texture)", "[Assets]" )
 	{
 		REQUIRE( texture.load( TEST_IMG_PATH, "test" ) == true );
 		// green vs red
-		REQUIRE( texture.get( "test" ).copyToImage().getPixel( 0, 0 ) != texture.getDefault().copyToImage().getPixel( 0, 0 ) );
+		REQUIRE( texture.get( "test" ).copyToImage().getPixel( 0, 0 ) != texture.getFallback().copyToImage().getPixel( 0, 0 ) );
 	}
 
 	std::experimental::filesystem::remove( TEST_IMG_PATH );

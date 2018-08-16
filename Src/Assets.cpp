@@ -20,7 +20,7 @@ void AssetsClass::setDefaultTexture()
 	img.create( 32, 32, sf::Color::Red );
 	sf::Texture defaultTexture;
 	defaultTexture.loadFromImage( img );
-	Textures._setDefault( std::move( defaultTexture ) );
+	Textures._setFallback( std::move( defaultTexture ) );
 }
 
 void AssetsClass::setDefaultFont()
@@ -63,6 +63,6 @@ void AssetsClass::setDefaultFont()
 
 	font.loadFromMemory( &fontData, fontData.size() );
 
-	Fonts._setDefault( std::move( font ) );
+	Fonts._setFallback( std::move( font ) );
 }
 }
