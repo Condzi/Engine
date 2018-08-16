@@ -13,12 +13,12 @@ namespace con::priv
 {
 bool InputClass::isUp( KeyboardKey key ) const
 {
-	return keyboardKeys.at( ConvertTo<uint8_t>( key ) ) == KeyState::Up;
+	return keyboardKeys.at( key ) == KeyState::Up && Global.GameWindow.hasFocus();
 }
 
 bool InputClass::isDown( KeyboardKey key ) const
 {
-	return keyboardKeys.at( ConvertTo<uint8_t>( key ) ) == KeyState::Down;
+	return keyboardKeys.at( key ) == KeyState::Down && Global.GameWindow.hasFocus();
 }
 
 bool InputClass::isHeld( KeyboardKey key ) const
@@ -28,12 +28,12 @@ bool InputClass::isHeld( KeyboardKey key ) const
 
 bool InputClass::isUp( MouseButton button ) const
 {
-	return mouseButtons.at( ConvertTo<uint8_t>( button ) ) == KeyState::Up;
+	return mouseButtons.at( button ) == KeyState::Up && Global.GameWindow.hasFocus();
 }
 
 bool InputClass::isDown( MouseButton button ) const
 {
-	return mouseButtons.at( ConvertTo<uint8_t>( button ) ) == KeyState::Down;
+	return mouseButtons.at( button ) == KeyState::Down && Global.GameWindow.hasFocus();
 }
 
 bool InputClass::isHeld( MouseButton button ) const
