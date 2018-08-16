@@ -67,7 +67,7 @@ TEST_CASE( "Basic Asset Holder (sf::Texture)", "[Assets]" )
 		testImg.saveToFile( TEST_IMG_PATH );
 	}
 
-	auto& texture = con::Global.Assets.Texture;
+	auto& texture = con::Global.Assets.Textures;
 
 	{
 		REQUIRE( texture.load( TEST_IMG_PATH, "test" ) == true );
