@@ -8,9 +8,10 @@
 #include "Engine/Debug.hpp"
 
 #ifdef _WIN32
-#undef DebugBreak()
 
+#undef DebugBreak()
 #include <windows.h>
+
 #endif
 
 namespace con::priv

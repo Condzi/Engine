@@ -69,7 +69,7 @@ public:
 		setConsoleTextColor( priority );
 		std::cout << logPriorityToString( priority );
 		resetConsoleTextColor();
-		std::cout << "]" << loggerName() << ": ";
+		std::cout << "] " << loggerName() << ": ";
 
 		std::string message;
 		if constexpr ( sizeof...( TArgs ) > 0 )
@@ -82,7 +82,7 @@ public:
 		}
 		std::cout << '\n';
 
-		ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ", message);
+		message = ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ", message );
 		LogFile::append( message );
 	}
 
