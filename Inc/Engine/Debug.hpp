@@ -63,12 +63,15 @@ public:
 	template <typename ...TArgs>
 	void print( LogPriority priority, const char* src, TArgs&& ...args )
 	{
-		auto logInfo = ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ");
-
-		std::string message;
 
 		resetConsoleTextColor();
-		std::cout << logInfo;
+		std::cout << "[";
+		setConsoleTextColor( priority );
+		std::cout << logPriorityToString( priority );
+		resetConsoleTextColor();
+		std::cout << "]" << loggerName() << ": ";
+
+		std::string message;
 		if constexpr ( sizeof...( TArgs ) > 0 )
 		{
 			message.reserve( std::strlen( src ) * 4 );
@@ -79,7 +82,7 @@ public:
 		}
 		std::cout << '\n';
 
-		message = logInfo + message;
+		ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ", message);
 		LogFile::append( message );
 	}
 
