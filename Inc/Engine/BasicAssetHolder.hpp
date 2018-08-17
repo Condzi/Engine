@@ -16,26 +16,42 @@ class BasicAssetHolder :
 	public ILogger
 {
 public:
+	using Hasher = std::hash<std::string>;
+
 	virtual ~BasicAssetHolder() = default;
+
+	bool load( const std::string& path, size_t hash )
+	{
+		if ( TAsset asset; asset.loadFromFile( path ) ) {
+			assets[hash] = std::move( asset );
+			return true;
+		} else {
+			print( LogPriority::Error, "can't load \"%\".", path );
+			return false;
+		}
+	}
 
 	bool load( const std::string& path, const std::string& name )
 	{
-		if ( TAsset asset; asset.loadFromFile( path ) ) {
-			assets[name] = std::move( asset );
-			return true;
-		}
+		return load( path, Hasher{}( name ) );
+	}
+
+	const TAsset& get( size_t hash )
+	{
+		if ( auto it = assets.find( hash ); it != assets.end() )
+			return it->second;
 		else {
-			log( LogPriority::Error, "can't load \"", name, "\" from \"", path, "\"." );
-			return false;
+			print( LogPriority::Warning, "can't find (hash: %).", hash );
+			return fallback;
 		}
 	}
 
 	const TAsset& get( const std::string& name )
 	{
-		if ( auto it = assets.find( name ); it != assets.end() )
+		if ( auto it = assets.find( Hasher{}( name ) ); it != assets.end() )
 			return it->second;
 		else {
-			log( LogPriority::Warning, "can't find \"", name, "\"." );
+			print( LogPriority::Warning, "can't find \"%\".", name );
 			return fallback;
 		}
 	}
@@ -52,7 +68,7 @@ public:
 
 private:
 	TAsset fallback;
-	std::unordered_map<std::string, TAsset> assets;
+	std::unordered_map<size_t, TAsset> assets;
 };
 
 class TextureHolder final :
