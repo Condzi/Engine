@@ -39,11 +39,11 @@ bool GameClass::validateSettings()
 	auto& settings = Global.Assets.Settings;
 
 	if ( !settings.getValue( "WINDOW", "WIDTH" ).has_value() )
-		log( LogPriority::Error, "Missing WINDOW WIDTH setting." );
+		print( LogPriority::Error, "Missing % setting.", "WINDOW WIDTH" );
 	else if ( !settings.getValue( "WINDOW", "HEIGHT" ).has_value() )
-		log( LogPriority::Error, "Missing WINDOW HEIGHT setting." );
+		print( LogPriority::Error, "Missing % setting.", "WINDOW HEIHT" );
 	else if ( !settings.getValue( "WINDOW", "FPS" ).has_value() )
-		log( LogPriority::Error, "Missing WINDOW FPS setting." );
+		print( LogPriority::Error, "Missing % setting.", "WINDOW FPS" );
 	else
 		return true;
 

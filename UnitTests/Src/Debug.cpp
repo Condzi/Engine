@@ -15,5 +15,7 @@ TEST_CASE( "Global Logger", "[DEBUG]" )
 TEST_CASE( "print", "[DEBUG]" )
 {
 	con::Global.Logger.print( con::LogPriority::Info, "Test" );
-	con::Global.Logger.print( con::LogPriority::Info, "Test2 = %", "Test2" );
+	con::Global.Logger.print( con::LogPriority::Info, "Test2 = %.", "Test2" );
+	con::Global.Logger.print(con::LogPriority::Warning, "I'm a %!", "warning");
+	con::Global.Logger.print( con::LogPriority::Error, "I'm an %!", "error" );
 }

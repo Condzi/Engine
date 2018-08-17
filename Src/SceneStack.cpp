@@ -17,7 +17,7 @@ std::unique_ptr<Scene> SceneFactory::createScene( SceneID id )
 		return result->second();
 	}
 
-	log( LogPriority::Error, "no scene of id \"", id, "\"." );
+	print( LogPriority::Error, "no scene of id %.", id );
 	return nullptr;
 }
 
@@ -61,9 +61,9 @@ void SceneStackClass::requestAction( Action&& action )
 	};
 
 	if ( action.operation == Operation::Push )
-		log( LogPriority::Info, "request \"Push\", id \"", action.scene, "\"." );
+		print( LogPriority::Info, "request %, scene id: %.", getOperationAsString( action.operation ), action.scene );
 	else
-		log( LogPriority::Info, "request \"", getOperationAsString( action.operation ), "\"." );
+		print( LogPriority::Info, "request %.", getOperationAsString( action.operation ) );
 
 	actionBuffer.emplace_back( std::move( action ) );
 }
@@ -72,18 +72,19 @@ void SceneStackClass::applyPush( SceneID id )
 {
 	auto scene = factory.createScene( id );
 	if ( scene ) {
-		log( LogPriority::Info, "scene Push, id \"", id, "\"." );
+		// passing 'Push' as argument to have coloring.
+		print( LogPriority::Info, "applying %, scene id: %.", "Push", id );
 		scenes.emplace_back( std::move( scene ) )->onPush();
 	} else
-		log( LogPriority::Info, "failed to Push, id \"", id, "\"." );
+		print( LogPriority::Error, "failed to apply %, scene id: %.", "Push", id );
 }
 
 void SceneStackClass::applyPop()
 {
 	if ( scenes.empty() )
-		return log( LogPriority::Error, "failed to Pop: empty stack." );
+		return print( LogPriority::Error, "failed to apply %: empty stack.", "Pop" );
 
-	log( LogPriority::Info, "scene Pop." );
+	print( LogPriority::Info, "applying %.", "Pop" );
 	scenes.back()->onPop();
 	scenes.pop_back();
 }
@@ -91,7 +92,7 @@ void SceneStackClass::applyPop()
 void SceneStackClass::applyEnable()
 {
 	if ( scenes.empty() )
-		return log( LogPriority::Error, "failed to Enable current scene: empty stack." );
+		return print( LogPriority::Error, "failed to apply %: empty stack.", "Enable" );
 
 	scenes.back()->Enable();
 }
@@ -99,7 +100,7 @@ void SceneStackClass::applyEnable()
 void SceneStackClass::applyDisable()
 {
 	if ( scenes.empty() )
-		return log( LogPriority::Error, "failed to Disable current scene: empty stack." );
+		return print( LogPriority::Error, "failed to apply %: empty stack.", "Disable" );
 
 	scenes.back()->Disable();
 }

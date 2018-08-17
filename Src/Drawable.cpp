@@ -128,17 +128,17 @@ bool IAnimation::errorWithInfo()
 	const auto& ai = animationInfo;
 
 	if ( !ai.sheet ) {
-		log( LogPriority::Error, "null sheet." );
+		print( LogPriority::Error, "null sheet." );
 	} else if ( ai.sheet->getSize().x < ai.framesCount * ai.frameSize ) {
 		auto has = ai.sheet->getSize().x;
 		auto need = ai.framesCount * ai.frameSize;
 
-		log( LogPriority::Error, "sheet is smaller in X than declared (", has, " - declared ", need, ")." );
+		print( LogPriority::Error, "sheet is smaller in X than declared (is %, but % needed).", has, need );
 	} else if ( ai.sheet->getSize().y < ai.frameSize ) {
 		auto has = ai.sheet->getSize().y;
 		auto need = ai.frameSize;
 
-		log( LogPriority::Error, "sheet is smaller in Y than declared (", has, " - declared ", need, ")." );
+		print( LogPriority::Error, "sheet is smaller in Y than declared (is %, but % needed).", has, need );
 	} else
 		return false;
 

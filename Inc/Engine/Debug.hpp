@@ -56,41 +56,52 @@ public:
 	template <typename ...TArgs>
 	void debugLog( LogPriority priority, TArgs&& ...args )
 	{
-		if constexpr (IS_DEBUG)
+		if constexpr ( IS_DEBUG )
 			log( priority, std::forward<TArgs>( args )... );
 	}
 
 	template <typename ...TArgs>
 	void print( LogPriority priority, const char* src, TArgs&& ...args )
 	{
+		auto logInfo = ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ");
+
 		std::string message;
+
+		resetConsoleTextColor();
+		std::cout << logInfo;
 		if constexpr ( sizeof...( TArgs ) > 0 )
 		{
 			message.reserve( std::strlen( src ) * 4 );
-			printImpl( message, src, std::forward<TArgs>( args )... );
-		} else
+			printImpl( message, src, priority, std::forward<TArgs>( args )... );
+		} else {
+			std::cout << src;
 			message = src;
+		}
+		std::cout << '\n';
 
-		message = ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ", message );
+		message = logInfo + message;
 		LogFile::append( message );
-		std::puts( message.c_str() );
 	}
 
 private:
 	template <typename T, typename ...TArgs>
-	void printImpl( std::string& buffer, const char* src, T&& arg, TArgs&&... args )
+	void printImpl( std::string& buffer, const char*& src, LogPriority priority, T&& arg, TArgs&&... args )
 	{
 		while ( *src ) {
 			if ( *src == '%' ) {
-				buffer += ConvertTo<std::string>( std::forward<T>( arg ) );
+				auto argStr = ConvertTo<std::string>( std::forward<T>( arg ) );
+				buffer += argStr;
+				setConsoleTextColor( priority );
+				std::cout << argStr;
+				resetConsoleTextColor();
 				++src;
 
 				if constexpr ( sizeof...( TArgs ) > 0 )
-					printImpl( buffer, src, std::forward<TArgs>( args )... );
+					printImpl( buffer, src, priority, std::forward<TArgs>( args )... );
 
-				break;
 			} else {
 				buffer += *src;
+				std::cout << *src;
 
 				++src;
 			}
@@ -98,6 +109,8 @@ private:
 		}
 	}
 	const char* logPriorityToString( LogPriority priority ) const noexcept;
+	void setConsoleTextColor( LogPriority priority );
+	void resetConsoleTextColor();
 };
 }
 

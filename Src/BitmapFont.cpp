@@ -32,12 +32,12 @@ Vec2i BitmapFont::getGlyphSize() const
 Vec2i BitmapFont::getGlyph( uint32_t codePoint ) const
 {
 	if ( texture.getSize() == Vec2u{ 0,0 } ) {
-		Global.Logger.log( con::LogPriority::Error, "BitmapFont isn't loaded." );
+		Global.Logger.print( con::LogPriority::Error, "BitmapFont isn't loaded." );
 		DebugBreak();
 		return { 0,0 };
 	}
 	if ( glyphSize.x < 0 || glyphSize.y < 0 ) {
-		Global.Logger.log( con::LogPriority::Error, "Glyph size is not set in bitmap font!" );
+		Global.Logger.print( con::LogPriority::Error, "Glyph size is not set in bitmap font!" );
 		DebugBreak();
 		return { 0,0 };
 	}
@@ -49,7 +49,7 @@ Vec2i BitmapFont::getGlyph( uint32_t codePoint ) const
 	if ( codePoint < cols * rows )
 		return Vec2i( glyphSize.x * ( codePoint % cols ), glyphSize.y * ( codePoint / cols ) );
 	else {
-		Global.Logger.log( con::LogPriority::Error, "Unable to find glyph (", codePoint, ")." );
+		Global.Logger.print( con::LogPriority::Error, "Unable to find glyph (%).", codePoint );
 		DebugBreak();
 		return { 0,0 };
 	}

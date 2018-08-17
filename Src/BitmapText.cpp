@@ -12,6 +12,7 @@ BitmapText::BitmapText( const std::string& string_, const BitmapFont& font_, con
 	string( string_ ),
 	font( &font_ )
 {
+	setColors( color_ );
 	setPosition( pos );
 	update();
 }

@@ -16,7 +16,7 @@ bool SoundHolder::load( const std::string& path, const std::string& name )
 		buffers[name] = std::move( buffer );
 		return true;
 	} else {
-		log( LogPriority::Error, "can't load \"", name, "\" from \"", path, "\"." );
+		print( LogPriority::Error, "can't load % from %.", name, path );
 		return false;
 	}
 }
@@ -40,7 +40,7 @@ sf::SoundBuffer* SoundHolder::findSoundBuffer( const std::string& name )
 	if ( auto it = buffers.find( name ); it != buffers.end() )
 		return &it->second;
 	else {
-		log( LogPriority::Warning, "can't find \"", name, "\"." );
+		print( LogPriority::Warning, "can't find %.", name );
 		return nullptr;
 	}
 }
@@ -54,7 +54,7 @@ sf::Sound* SoundHolder::findFreeSoundPlayer()
 	if ( it != players.end() )
 		return &( *it );
 	else {
-		log( LogPriority::Warning, "no free sound players (max is ", PLAYERS_LIMIT, ")." );
+		print( LogPriority::Warning, "no free sound players (max is  %).", PLAYERS_LIMIT );
 		return nullptr;
 	}
 }
@@ -79,7 +79,7 @@ void MusicHolder::play( const std::string& name )
 			player.setVolume( ConvertTo<float>( volume ) );
 			player.play();
 		} else
-			log( LogPriority::Error, "can't load \"", name, "\" from \"", *path, "\"." );
+			print( LogPriority::Error, "can't load % from %.", name, *path );
 }
 
 void MusicHolder::setVolume( uint8_t value )
@@ -103,7 +103,7 @@ std::string* MusicHolder::findPath( const std::string& name )
 	if ( auto it = music.find( name ); it != music.end() )
 		return &it->second;
 	else {
-		log( LogPriority::Warning, "can't find \"", name, "\"." );
+		print( LogPriority::Warning, "can't find %.", name );
 		return nullptr;
 	}
 }

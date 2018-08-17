@@ -26,7 +26,7 @@ std::unique_ptr<Entity>& EntityStorage::getFreeSlot()
 		if ( !e )
 			return e;
 
-	log( LogPriority::Warning, "No free slots: has to realloc. (", entities.size(), " items)" );
+	print( LogPriority::Warning, "No free slots: has to realloc. (% items)", entities.size() );
 	return entities.emplace_back();
 }
 

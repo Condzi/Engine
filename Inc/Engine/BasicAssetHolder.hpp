@@ -26,7 +26,7 @@ public:
 			assets[hash] = std::move( asset );
 			return true;
 		} else {
-			print( LogPriority::Error, "can't load \"%\".", path );
+			print( LogPriority::Error, "can't load %.", path );
 			return false;
 		}
 	}
@@ -51,7 +51,7 @@ public:
 		if ( auto it = assets.find( Hasher{}( name ) ); it != assets.end() )
 			return it->second;
 		else {
-			print( LogPriority::Warning, "can't find \"%\".", name );
+			print( LogPriority::Warning, "can't find %.", name );
 			return fallback;
 		}
 	}

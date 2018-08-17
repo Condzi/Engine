@@ -15,7 +15,7 @@ bool INIFile::load( const std::string& path )
 	std::ifstream file( pathToFile );
 
 	if ( !file ) {
-		log( LogPriority::Error, "can't open file." );
+		print( LogPriority::Error, "can't open file." );
 		return false;
 	}
 
@@ -73,10 +73,10 @@ std::optional<std::string> INIFile::getValue( const std::string& section, const 
 		if ( vecIt != vec.end() )
 			return vecIt->value;
 		else
-			log( LogPriority::Error, "can't find \"", name, "\" in \"", section, "\" section." );
-	} else {
-		log( LogPriority::Error, "can't find \"", section, "\" section." );
-	}
+			print( LogPriority::Error, "can't find % in % section.", name, section );
+	} else
+		print( LogPriority::Error, "can't find % section.", section );
+
 	return {};
 }
 
@@ -144,7 +144,7 @@ bool INIFile::isSection( std::string& line )
 std::optional<std::string> INIFile::parseSection( std::string& line )
 {
 	if ( !( line.front() == '[' && line.back() == ']' ) ) {
-		log( LogPriority::Error, "missing bracket." );
+		print( LogPriority::Error, "missing bracket." );
 		return {};
 	}
 
