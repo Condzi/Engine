@@ -52,12 +52,12 @@ private:
 	};
 
 public:
-	template <typename TScene>
-	void registerState( StateID id )
+	template <typename TState, typename ...TArgs>
+	void registerState( StateID id, TArgs&& ...args )
 	{
-		static_assert( std::is_base_of_v<State, TScene> );
+		static_assert( std::is_base_of_v<State, TState> );
 		factory.functions[id] = [&] {
-			return std::make_unique<TScene>();
+			return std::make_unique<TState>( std::forward<TArgs>( args )... );
 		};
 	}
 

@@ -18,3 +18,4 @@
 #include <Engine/Drawable.hpp>
 #include <Engine/BitmapFont.hpp>
 #include <Engine/BitmapText.hpp>
+#include <Engine/StateMachine.hpp>
