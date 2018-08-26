@@ -17,17 +17,15 @@ public:
 	// Same as priv::SceneFactory::SceneID
 	using SceneID = std::string_view;
 
-	RULE_OF_FIVE( Scene );
-	virtual ~Scene() = default;
-
 	enum class Status : int8_t
 	{
-		Enabled,
-		Disabled,
-		Unloaded
+		Enabled, Disabled
 	};
 
 	const SceneID Id = "unregistred";
+
+	RULE_OF_FIVE( Scene );
+	virtual ~Scene() = default;
 
 	virtual void onPush() {}
 	virtual void onPop() {}

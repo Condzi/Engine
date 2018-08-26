@@ -16,48 +16,24 @@ void Scene::_setId( SceneID Id_ )
 
 void Scene::enable()
 {
-	switch ( status ) {
-	case Status::Enabled:
-	{
+	if ( status == Status::Enabled )
 		debugLog( LogPriority::Warning, "already enabled." );
-		break;
-	}
-	case Status::Disabled:
-	{
+	else {
 		status = Status::Enabled;
 		enableEntities();
 		onEnable();
-		break;
-	}
-	case Status::Unloaded:
-	{
-		debugLog( LogPriority::Warning, "can't be enabled: it's unloaded." );
-		break;
-	}
 	}
 }
 
 void Scene::disable()
 {
-	switch ( status ) {
-	case Status::Enabled:
-	{
+	if ( status == Status::Enabled ) {
 		status = Status::Disabled;
-		disableEntities();
 		onDisable();
-		break;
+		disableEntities();
 	}
-	case Status::Disabled:
-	{
+	else 
 		debugLog( LogPriority::Warning, "already disabled." );
-		break;
-	}
-	case Status::Unloaded:
-	{
-		debugLog( LogPriority::Warning, "can't be disabled: it's unloaded." );
-		break;
-	}
-	}
 }
 
 void Scene::_update()
