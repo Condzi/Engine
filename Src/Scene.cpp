@@ -14,7 +14,7 @@ void Scene::_setId( SceneID Id_ )
 	const_cast<std::string_view&>( Id ) = Id_;
 }
 
-void Scene::Enable()
+void Scene::enable()
 {
 	switch ( status ) {
 	case Status::Enabled:
@@ -37,7 +37,7 @@ void Scene::Enable()
 	}
 }
 
-void Scene::Disable()
+void Scene::disable()
 {
 	switch ( status ) {
 	case Status::Enabled:

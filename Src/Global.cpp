@@ -30,10 +30,18 @@ GlobalClass::GlobalClass() :
 	Logger( *( new GlobalLoggerClass{} ) )
 {}
 
-// Delete some pts to call their destructors.
+// Order of delete matter!
 GlobalClass::~GlobalClass()
 {
 	delete &Assets;
+	delete &GUI;
+	delete &Input;
+	delete &SceneStack;
+	delete &_Renderer;
+	delete &GameWindow;
+	delete &Game;
+	delete &_Updater;
+	delete &Logger;
 }
 }
 

@@ -238,7 +238,7 @@ TEST_CASE( "Scene - spawning", "[Gameplay Objects]" )
 	REQUIRE( ExampleEntityA::testVar == 1 );
 	REQUIRE( ExampleEntityB::testVar == 1 );
 
-	scene.Disable();
+	scene.disable();
 	REQUIRE( ExampleSceneA::testVar == 1 );
 
 	REQUIRE( ExampleEntityA::testVar == 2 );
@@ -249,7 +249,7 @@ TEST_CASE( "Scene - spawning", "[Gameplay Objects]" )
 	REQUIRE( ExampleEntityA::testVar == 2 );
 	REQUIRE( ExampleEntityB::testVar == 2 );
 
-	scene.Enable();
+	scene.enable();
 
 	REQUIRE( ExampleSceneA::testVar == 2 );
 

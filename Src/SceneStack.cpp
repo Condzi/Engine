@@ -94,7 +94,7 @@ void SceneStackClass::applyEnable()
 	if ( scenes.empty() )
 		return print( LogPriority::Error, "failed to apply %: empty stack.", "Enable" );
 
-	scenes.back()->Enable();
+	scenes.back()->enable();
 }
 
 void SceneStackClass::applyDisable()
@@ -102,7 +102,7 @@ void SceneStackClass::applyDisable()
 	if ( scenes.empty() )
 		return print( LogPriority::Error, "failed to apply %: empty stack.", "Disable" );
 
-	scenes.back()->Disable();
+	scenes.back()->disable();
 }
 
 void SceneStackClass::applyActions()

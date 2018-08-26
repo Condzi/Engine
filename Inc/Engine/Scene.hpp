@@ -78,9 +78,9 @@ public:
 	}
 
 	// Immidietly enables scene.
-	void Enable();
+	void enable();
 	// Immidietly disables scene.
-	void Disable();
+	void disable();
 	void _update();
 
 private:
