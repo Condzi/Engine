@@ -43,11 +43,15 @@ public:
 class ILoggerBase
 {
 public:
+	bool Mute = false;
 	virtual std::string loggerName() const = 0;
 
 	template <typename ...TArgs>
 	void log( LogPriority priority, TArgs&& ...args )
 	{
+		if ( Mute )
+			return;
+
 		auto message = ConvertTo<std::string>( "[", logPriorityToString( priority ), "] ", loggerName(), ": ", std::forward<TArgs>( args )... );
 		LogFile::append( message );
 		std::puts( message.c_str() );
@@ -56,6 +60,9 @@ public:
 	template <typename ...TArgs>
 	void debugLog( LogPriority priority, TArgs&& ...args )
 	{
+		if ( Mute )
+			return;
+
 		if constexpr ( IS_DEBUG )
 			log( priority, std::forward<TArgs>( args )... );
 	}
@@ -63,6 +70,8 @@ public:
 	template <typename ...TArgs>
 	void print( LogPriority priority, const char* src, TArgs&& ...args )
 	{
+		if ( Mute )
+			return;
 
 		resetConsoleTextColor();
 		std::cout << "[";
@@ -119,7 +128,10 @@ private:
 
 class ILogger :
 	protected priv::ILoggerBase
-{};
+{
+public:
+	void setMuteLogger( bool Mute_ );
+};
 }
 
 namespace con::priv

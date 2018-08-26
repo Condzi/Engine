@@ -65,3 +65,8 @@ void LogFile::append( const std::string& message )
 	file.content.emplace_back( message );
 }
 }
+
+void con::ILogger::setMuteLogger( bool Mute_ )
+{
+	Mute = Mute_;
+}
