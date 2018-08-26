@@ -51,19 +51,19 @@ std::optional<Scene*> SceneStackClass::getSceneOnTop()
 
 void SceneStackClass::requestAction( Action&& action )
 {
-	static auto getOperationAsString = []( Operation op ) {
-		switch ( op ) {
+	auto op = [&] {
+		switch ( action.operation ) {
 		case Operation::Push: return "Push";
 		case Operation::Pop: return "Pop";
 		case Operation::Enable: return "Enable";
 		case Operation::Disable: return "Disable";
 		}
-	};
+	}( );
 
 	if ( action.operation == Operation::Push )
-		print( LogPriority::Info, "request %, scene id: %.", getOperationAsString( action.operation ), action.scene );
+		print( LogPriority::Info, "request %, scene id: %.", op, action.scene );
 	else
-		print( LogPriority::Info, "request %.", getOperationAsString( action.operation ) );
+		print( LogPriority::Info, "request %.", op );
 
 	actionBuffer.emplace_back( std::move( action ) );
 }
