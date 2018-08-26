@@ -14,14 +14,8 @@ SystemStorage::SystemStorage( Scene* parentScene_ ) :
 {}
 void SystemStorage::updateSystems()
 {
-	// DEBUG!
-	if ( needsSort ) {
-		if ( static bool logged = false; !logged ) {
-			logged = true;
-			std::cout<< "\nFIXME - SystemStorage needs sort! Update me before something!\n";
-			update();
-		}
-	}
+	if ( needsSort )
+		update();
 
 	for ( auto& system : systems )
 		system->onUpdate();

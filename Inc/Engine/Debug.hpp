@@ -113,7 +113,7 @@ private:
 
 			} else {
 				buffer += *src;
-				std::cout << *src;
+				std::putchar( *src );
 
 				++src;
 			}
