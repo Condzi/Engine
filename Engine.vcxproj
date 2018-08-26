@@ -19,6 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\State.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Src\StateMachine.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Src\BitmapFont.cpp">
       <SubType>
       </SubType>
@@ -102,6 +110,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\Engine\State.hpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Inc\Engine\All.hpp">
       <SubType>
       </SubType>
@@ -109,6 +121,10 @@
     <ClInclude Include="Inc\Engine\Assets.hpp" />
     <ClInclude Include="Inc\Engine\AudioHolder.hpp" />
     <ClInclude Include="Inc\Engine\BasicAssetHolder.hpp" />
+    <ClInclude Include="Inc\Engine\StateMachine.hpp">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Inc\Engine\BitmapFont.hpp">
       <SubType>
       </SubType>

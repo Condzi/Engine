@@ -9,6 +9,7 @@
 #include <Engine/SystemStorage.hpp>
 #include <Engine/Updater.hpp>
 #include <Engine/SceneStack.hpp>
+#include <Engine/StateMachine.hpp>
 // for sleep
 #include <thread>
 
@@ -325,4 +326,102 @@ TEST_CASE( "SceneStack", "[Gameplay Objects]" )
 	con::Global._Updater.update();
 	REQUIRE( ExampleSceneA::testVar == 5 );
 	REQUIRE( ExampleSceneB::testVar == 4 );
+}
+
+class ExampleStateA final :
+	public con::State
+{
+public:
+	inline static int testVar = 0;
+
+	void onPush() override
+	{
+		testVar++;
+	}
+
+	void onPop() override
+	{
+		testVar++;
+	}
+
+	void onEnable() override
+	{
+		testVar++;
+	}
+
+	void onDisable() override
+	{
+		testVar++;
+	}
+
+	void onUpdate() override
+	{
+		testVar++;
+	}
+};
+
+class ExampleStateB final :
+	public con::State
+{
+public:
+	inline static int testVar = 0;
+
+	void onPush() override
+	{
+		testVar++;
+	}
+
+	void onPop() override
+	{
+		testVar++;
+	}
+
+	void onEnable() override
+	{
+		testVar++;
+	}
+
+	void onDisable() override
+	{
+		testVar++;
+	}
+
+	void onUpdate() override
+	{
+		testVar++;
+	}
+};
+
+
+TEST_CASE( "State Machine", "[Gameplay Objects]" )
+{
+	con::StateMachine sm;
+	ExampleStateA::testVar = ExampleStateB::testVar = 0;
+
+	sm.registerState<ExampleStateA>( "a" );
+	sm.registerState<ExampleStateB>( "b" );
+
+	sm.push( "a" );
+	sm.update();
+	REQUIRE( ExampleStateA::testVar == 2 );
+	REQUIRE( ExampleStateB::testVar == 0 );
+	sm.disableCurrentState();
+	sm.update();
+	REQUIRE( ExampleStateA::testVar == 3 );
+	REQUIRE( ExampleStateB::testVar == 0 );
+	sm.push( "b" );
+	sm.update();
+	REQUIRE( ExampleStateA::testVar == 3 );
+	REQUIRE( ExampleStateB::testVar == 2 );
+	sm.update();
+	REQUIRE( ExampleStateA::testVar == 3 );
+	REQUIRE( ExampleStateB::testVar == 3 );
+	sm.pop();
+	sm.update();
+	REQUIRE( ExampleStateA::testVar == 3 );
+	REQUIRE( ExampleStateB::testVar == 4 );
+	sm.enableCurrentState();
+	sm.update();
+	REQUIRE( ExampleStateA::testVar == 5 );
+	REQUIRE( ExampleStateB::testVar == 4 );
 }
