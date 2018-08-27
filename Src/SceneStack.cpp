@@ -83,7 +83,7 @@ void SceneStackClass::applyPop()
 	if ( scenes.empty() )
 		return print( LogPriority::Error, "failed to apply %: empty stack.", "Pop" );
 
-	print( LogPriority::Info, "applying %.", "Pop" );
+	print( LogPriority::Info, "applying %, scene id: %.", "Pop", scenes.back()->Id );
 	scenes.back()->onPop();
 	scenes.pop_back();
 }
