@@ -108,7 +108,7 @@ void IAnimation::updateFrameTime()
 	if ( currentFrameTime > ai.fps ) {
 		currentFrameTime -= ai.fps;
 
-		if ( ++currentFrameNumber > ai.framesCount )
+		if ( ++currentFrameNumber == ai.framesCount )
 			currentFrameNumber = 0;
 	}
 }
@@ -119,8 +119,8 @@ std::optional<sf::IntRect> IAnimation::getFrameRect()
 	if ( !isAnimation )
 		return {};
 
-	auto newFrameXpos = currentFrameNumber * ai.frameSize;
-	return sf::IntRect( newFrameXpos, 0, ai.frameSize, ai.frameSize );
+	auto newFrameXpos = currentFrameNumber * ai.frameSize.x + ai.begin;
+	return sf::IntRect( newFrameXpos, 0, ai.frameSize.x, ai.frameSize.y );
 }
 
 bool IAnimation::errorWithInfo()
@@ -129,14 +129,14 @@ bool IAnimation::errorWithInfo()
 
 	if ( !ai.sheet ) {
 		print( LogPriority::Error, "null sheet." );
-	} else if ( ai.sheet->getSize().x < ai.framesCount * ai.frameSize ) {
+	} else if ( ai.sheet->getSize().x < ai.framesCount * ai.frameSize.x + ai.begin ) {
 		auto has = ai.sheet->getSize().x;
-		auto need = ai.framesCount * ai.frameSize;
+		auto need = ai.framesCount * ai.frameSize.x;
 
 		print( LogPriority::Error, "sheet is smaller in X than declared (is %, but % needed).", has, need );
-	} else if ( ai.sheet->getSize().y < ai.frameSize ) {
+	} else if ( ai.sheet->getSize().y < ai.frameSize.y ) {
 		auto has = ai.sheet->getSize().y;
-		auto need = ai.frameSize;
+		auto need = ai.frameSize.y;
 
 		print( LogPriority::Error, "sheet is smaller in Y than declared (is %, but % needed).", has, need );
 	} else

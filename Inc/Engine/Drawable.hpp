@@ -33,8 +33,9 @@ protected:
 
 struct AnimationInfo final
 {
-	sf::Texture* sheet = nullptr;
-	uint16_t frameSize = 0;
+	const sf::Texture* sheet = nullptr;
+	Vec2u frameSize;
+	uint16_t begin = 0;
 	uint16_t framesCount = 0;
 	sf::Time fps;
 };
