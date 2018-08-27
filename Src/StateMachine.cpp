@@ -12,10 +12,8 @@ namespace con::priv
 std::unique_ptr<State> con::priv::StateFactory::createState( StateID id )
 {
 	auto result = functions.find( id );
-	if ( result != functions.end() ) {
-		result->second()->_setId( id );
+	if ( result != functions.end() )
 		return result->second();
-	}
 
 	print( LogPriority::Error, "no scene of id %.", id );
 	return nullptr;
@@ -88,6 +86,7 @@ void StateMachine::applyPush( StateID id )
 
 	if ( state ) {
 		state->StateMachine = this;
+		state->_setId( id );
 		// passing 'Push' as argument to have coloring.
 		print( LogPriority::Info, "applying %, state id: %.", "Push", id );
 		states.emplace_back( std::move( state ) )->onPush();

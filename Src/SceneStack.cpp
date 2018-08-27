@@ -12,10 +12,8 @@ namespace con::priv
 std::unique_ptr<Scene> SceneFactory::createScene( SceneID id )
 {
 	auto result = functions.find( id );
-	if ( result != functions.end() ) {
-		result->second()->_setId( id );
+	if ( result != functions.end() )
 		return result->second();
-	}
 
 	print( LogPriority::Error, "no scene of id %.", id );
 	return nullptr;
@@ -72,6 +70,7 @@ void SceneStackClass::applyPush( SceneID id )
 {
 	auto scene = factory.createScene( id );
 	if ( scene ) {
+		scene->_setId( id );
 		// passing 'Push' as argument to have coloring.
 		print( LogPriority::Info, "applying %, scene id: %.", "Push", id );
 		scenes.emplace_back( std::move( scene ) )->onPush();
