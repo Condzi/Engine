@@ -105,8 +105,9 @@ void IAnimation::updateFrameTime()
 	}
 
 	currentFrameTime += Global.FrameTime;
-	if ( currentFrameTime > ai.fps ) {
-		currentFrameTime -= ai.fps;
+	const sf::Time fps = sf::seconds( 1.f / ai.fps );
+	if ( currentFrameTime > fps ) {
+		currentFrameTime -= fps;
 
 		if ( ++currentFrameNumber == ai.framesCount )
 			currentFrameNumber = 0;

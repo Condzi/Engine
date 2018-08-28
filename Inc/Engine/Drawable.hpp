@@ -37,7 +37,7 @@ struct AnimationInfo final
 	Vec2u frameSize;
 	uint16_t begin = 0;
 	uint16_t framesCount = 0;
-	sf::Time fps;
+	uint16_t fps = 0;
 };
 
 class IAnimation :
