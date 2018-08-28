@@ -37,7 +37,7 @@ public:
 
 	int8_t getUpdatePriority() const final
 	{
-		return ConvertTo<int8_t>( UpdatePriority::Entity );
+		return UpdatePriority::Entity;
 	}
 
 	Status getStatus() const;

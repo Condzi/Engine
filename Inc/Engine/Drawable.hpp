@@ -51,7 +51,7 @@ public:
 
 	int8_t getUpdatePriority() const
 	{
-		return ConvertTo<int8_t>( UpdatePriority::Drawable );
+		return UpdatePriority::Drawable;
 	}
 
 protected:

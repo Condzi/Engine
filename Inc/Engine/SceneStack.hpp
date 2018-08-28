@@ -69,7 +69,7 @@ public:
 
 	int8_t getUpdatePriority() const override
 	{
-		return ConvertTo<int8_t>( UpdatePriority::Renderer );
+		return UpdatePriority::Renderer;
 	}
 
 private:
