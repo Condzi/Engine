@@ -120,7 +120,7 @@ std::optional<sf::IntRect> IAnimation::getFrameRect()
 	if ( !isAnimation )
 		return {};
 
-	auto newFrameXpos = currentFrameNumber * ai.frameSize.x + ai.begin;
+	auto newFrameXpos = (currentFrameNumber + ai.begin) * ai.frameSize.x;
 	return sf::IntRect( newFrameXpos, 0, ai.frameSize.x, ai.frameSize.y );
 }
 
@@ -130,7 +130,7 @@ bool IAnimation::errorWithInfo()
 
 	if ( !ai.sheet ) {
 		print( LogPriority::Error, "null sheet." );
-	} else if ( ai.sheet->getSize().x < ai.framesCount * ai.frameSize.x + ai.begin ) {
+	} else if ( ai.sheet->getSize().x < (ai.framesCount + ai.begin) * ai.frameSize.x ) {
 		auto has = ai.sheet->getSize().x;
 		auto need = ai.framesCount * ai.frameSize.x;
 

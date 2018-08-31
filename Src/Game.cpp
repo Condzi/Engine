@@ -21,11 +21,19 @@ void GameClass::run()
 	configureFromSettings();
 
 	sf::Clock fpsClock;
+	sf::Time inputLagTime;
 	while ( !Global.ExitGame ) {
+		// When resizing or moving the window .pollEvents causes FrameTime to rise
+		// to very high amount that affects calculating collisions or other things that use
+		// Global.FrameTime
+		{
+		sf::Clock inputClock;
 		Global.Input._dispatchEvents();
+		inputLagTime = inputClock.getElapsedTime();
+		}
 		Global._Updater.update();
 
-		Global.FrameTime = fpsClock.restart();
+		Global.FrameTime = fpsClock.restart() - inputLagTime;
 	}
 }
 
