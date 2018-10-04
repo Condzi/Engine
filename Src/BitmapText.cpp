@@ -71,7 +71,7 @@ RectF BitmapText::getLocalBounds() const
 	const auto strSize = string.size();
 
 	while ( idx != std::string::npos && idx < strSize ) {
-		std::size_t next = std::min( string.find( '\n', idx ), strSize );
+		size_t next = std::min( string.find( '\n', idx ), strSize );
 
 		auto tabs = std::count( string.begin() + idx, string.begin() + next, '\t' );
 

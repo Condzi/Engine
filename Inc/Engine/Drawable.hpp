@@ -14,12 +14,15 @@ namespace con
 class IDrawable
 {
 public:
+	bool AffectedByView = true;
+
 	IDrawable();
 	RULE_OF_FIVE_NO_CTOR( IDrawable );
 	virtual ~IDrawable();
 
 	void setDrawLayer( int16_t layer_ );
 	int16_t getDrawLayer() const;
+	// @ToDo: Probably useless.
 	void boundWithEntity( Entity* boundedEntity_ );
 	Entity* getBoundedEntity() const;
 	bool isBoundedWithEntity() const;
@@ -29,6 +32,20 @@ public:
 protected:
 	Entity* boundedEntity = nullptr;
 	int16_t layer = 0;
+
+	template <typename TDrawable>
+	void renderInternal( sf::RenderWindow& window, TDrawable& drawable )
+	{
+		static_assert( std::is_base_of_v<sf::Drawable, TDrawable> );
+
+		if ( !AffectedByView ) {
+			auto org = window.getView();
+			window.setView( window.getDefaultView() );
+			window.draw( drawable );
+			window.setView( org );
+		} else
+			window.draw( drawable );
+	}
 };
 
 struct AnimationInfo final

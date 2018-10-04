@@ -28,7 +28,9 @@ public:
 		Dead
 	};
 
+	// @ToDo: Wrong naming convention. Change to 'Position'! 
 	Vec2f position;
+	// @ToDo: Wrong naming convention. Change to 'Tag'!
 	std::string tag = "UnnamedEntity";
 
 	void kill();

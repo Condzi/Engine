@@ -46,7 +46,7 @@ bool IDrawable::isBoundedWithEntity() const
 
 void RectangleShape::render( sf::RenderWindow& window )
 {
-	window.draw( *this );
+	renderInternal( window, *this );
 }
 
 void RectangleShape::update()
@@ -60,7 +60,7 @@ void RectangleShape::update()
 
 void CircleShape::render( sf::RenderWindow& window )
 {
-	window.draw( *this );
+	renderInternal( window, *this );
 }
 
 void CircleShape::update()
@@ -74,7 +74,7 @@ void CircleShape::update()
 
 void Sprite::render( sf::RenderWindow& window )
 {
-	window.draw( *this );
+	renderInternal( window, *this );
 }
 
 void Sprite::update()
@@ -89,7 +89,7 @@ void Sprite::update()
 
 void Text::render( sf::RenderWindow& window )
 {
-	window.draw( *this );
+	renderInternal( window, *this );
 }
 
 void IAnimation::updateFrameTime()
@@ -120,7 +120,7 @@ std::optional<sf::IntRect> IAnimation::getFrameRect()
 	if ( !isAnimation )
 		return {};
 
-	auto newFrameXpos = (currentFrameNumber + ai.begin) * ai.frameSize.x;
+	auto newFrameXpos = ( currentFrameNumber + ai.begin ) * ai.frameSize.x;
 	return sf::IntRect( newFrameXpos, 0, ai.frameSize.x, ai.frameSize.y );
 }
 
@@ -130,7 +130,7 @@ bool IAnimation::errorWithInfo()
 
 	if ( !ai.sheet ) {
 		print( LogPriority::Error, "null sheet." );
-	} else if ( ai.sheet->getSize().x < (ai.framesCount + ai.begin) * ai.frameSize.x ) {
+	} else if ( ai.sheet->getSize().x < ( ai.framesCount + ai.begin ) * ai.frameSize.x ) {
 		auto has = ai.sheet->getSize().x;
 		auto need = ai.framesCount * ai.frameSize.x;
 
