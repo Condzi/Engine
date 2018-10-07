@@ -8,6 +8,7 @@
 #include "Engine/Utility.hpp"
 #include "Engine/IUpdatable.hpp"
 #include "Engine/Entity.hpp"
+#include "Engine/BitmapText.hpp"
 
 namespace con
 {
@@ -132,6 +133,16 @@ class Text :
 {
 public:
 	using sf::Text::Text;
+
+	void render( sf::RenderWindow& window ) override;
+};
+
+class BitmapText :
+	public priv::BitmapText,
+	public IDrawable
+{
+public:
+	using priv::BitmapText::BitmapText;
 
 	void render( sf::RenderWindow& window ) override;
 };

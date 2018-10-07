@@ -6,7 +6,7 @@
 #include "Engine/EnginePCH.hpp"
 #include "Engine/BitmapText.hpp"
 
-namespace con
+namespace con::priv
 {
 BitmapText::BitmapText( const std::string& string_, const BitmapFont& font_, const Vec2f& pos, sf::Color color_ ) :
 	string( string_ ),
@@ -99,6 +99,7 @@ void BitmapText::draw( sf::RenderTarget & target, sf::RenderStates states ) cons
 
 	states.transform *= getTransform();
 	states.texture = &font->getTexture();
+
 	target.draw( vertices, states );
 }
 

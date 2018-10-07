@@ -10,18 +10,20 @@ https://github.com/dabbertorres/sfml-bitmap-text
 
 #pragma once
 
-#include "Engine/Drawable.hpp"
 #include "Engine/BitmapFont.hpp"
 
-namespace con
+namespace con::priv
 {
-class BitmapText final :
+// For con::BitmapText see Drawable.hpp
+class BitmapText :
 	public sf::Transformable,
 	public sf::Drawable
 {
 public:
 	BitmapText() = default;
 	BitmapText( const std::string& string_, const BitmapFont& font_, const Vec2f& pos = {}, sf::Color color_ = sf::Color::White );
+
+	virtual ~BitmapText() = default;
 
 	void setString( const std::string& string_ );
 	void setFont( const BitmapFont& font_ );

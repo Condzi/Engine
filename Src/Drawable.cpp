@@ -145,4 +145,9 @@ bool IAnimation::errorWithInfo()
 
 	return true;
 }
+
+void BitmapText::render( sf::RenderWindow& window )
+{
+	renderInternal( window, *this );
+}
 }
