@@ -34,12 +34,14 @@ public:
 	bool isHeld( MouseButton button ) const;
 
 	Vec2i getMousePosition() const;
+	bool doesMouseMoved() const;
 
 	void _dispatchEvents();
 
 private:
 	std::array<KeyState, KeyboardKey::KeyCount> keyboardKeys{ KeyState::None };
 	std::array<KeyState, MouseButton::ButtonCount> mouseButtons{ KeyState::None };
+	bool mouseMoved = false;
 
 	void clearStates();
 };

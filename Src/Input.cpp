@@ -45,10 +45,16 @@ Vec2i InputClass::getMousePosition() const
 	return sf::Mouse::getPosition( Global.GameWindow );
 }
 
+bool InputClass::doesMouseMoved() const
+{
+	return mouseMoved;
+}
+
 void InputClass::_dispatchEvents()
 {
 	using EventType = sf::Event::EventType;
 
+	mouseMoved = false;
 	clearStates();
 
 	sf::Event event;
@@ -79,6 +85,11 @@ void InputClass::_dispatchEvents()
 			mouseButtons.at( event.mouseButton.button ) = KeyState::Down;
 			break;
 		}
+		case EventType::MouseMoved:
+		{
+			mouseMoved = true;
+			break;
+		}
 		case EventType::Resized:
 		{
 			auto width = ConvertTo<float32_t>( event.size.width );
@@ -97,6 +108,7 @@ void InputClass::_dispatchEvents()
 
 void InputClass::clearStates()
 {
+	mouseMoved = false;
 	keyboardKeys.fill( KeyState::None );
 	mouseButtons.fill( KeyState::None );
 }
