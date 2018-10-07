@@ -37,6 +37,7 @@ void BitmapText::setColor( sf::Color color, size_t idx, size_t count )
 
 void BitmapText::setColors( sf::Color color )
 {
+	defaultColor = color;
 	std::fill( colors.begin(), colors.end(), color );
 	update();
 }
@@ -49,6 +50,11 @@ const std::string& BitmapText::getString() const
 const BitmapFont * BitmapText::getFont() const
 {
 	return font;
+}
+
+sf::Color BitmapText::getDefaultColor() const
+{
+	return defaultColor;
 }
 
 sf::Color BitmapText::getColor( size_t index ) const
@@ -92,7 +98,7 @@ RectF BitmapText::getGlobalBounds() const
 	return getTransform().transformRect( getLocalBounds() );
 }
 
-void BitmapText::draw( sf::RenderTarget & target, sf::RenderStates states ) const
+void BitmapText::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
 	if ( !font )
 		return;
@@ -105,7 +111,7 @@ void BitmapText::draw( sf::RenderTarget & target, sf::RenderStates states ) cons
 
 void BitmapText::update()
 {
-	colors.resize( string.size(), sf::Color::White );
+	colors.resize( string.size(), defaultColor );
 
 	if ( !font )
 		return;

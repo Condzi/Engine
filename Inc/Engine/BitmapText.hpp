@@ -32,6 +32,8 @@ public:
 
 	const std::string& getString() const;
 	const BitmapFont* getFont() const;
+	sf::Color getDefaultColor() const;
+	// @ToDo: Beter names. getColorAtIdx( index )? same with set colors
 	sf::Color getColor( size_t index ) const;
 	const std::vector<sf::Color>& getColors() const;
 
@@ -44,6 +46,7 @@ private:
 	inline static constexpr size_t TAB_WIDTH = 4; // In characters
 	std::string string;
 	const BitmapFont* font = nullptr;
+	sf::Color defaultColor = sf::Color::White;
 	std::vector<sf::Color> colors;
 	sf::VertexArray vertices{ sf::Quads };
 
