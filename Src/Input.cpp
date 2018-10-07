@@ -54,7 +54,6 @@ void InputClass::_dispatchEvents()
 {
 	using EventType = sf::Event::EventType;
 
-	mouseMoved = false;
 	clearStates();
 
 	sf::Event event;
