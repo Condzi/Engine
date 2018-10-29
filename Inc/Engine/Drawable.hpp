@@ -16,6 +16,7 @@ class IDrawable
 {
 public:
 	bool AffectedByView = true;
+	bool Active = true;
 
 	IDrawable();
 	RULE_OF_FIVE_NO_CTOR( IDrawable );
@@ -28,6 +29,7 @@ public:
 	Entity* getBoundedEntity() const;
 	bool isBoundedWithEntity() const;
 
+	// @ToDo: Don't forward window since we always render to Global.GameWindow
 	virtual void render( sf::RenderWindow& window ) {}
 
 protected:
@@ -38,6 +40,9 @@ protected:
 	void renderInternal( sf::RenderWindow& window, TDrawable& drawable )
 	{
 		static_assert( std::is_base_of_v<sf::Drawable, TDrawable> );
+
+		if ( !Active )
+			return;
 
 		if ( !AffectedByView ) {
 			auto org = window.getView();
