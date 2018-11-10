@@ -55,6 +55,8 @@ public:
 			lambda( *entityPtr );
 	}
 
+	// @ToDo: forEachEntityDerivedFrom<TType> ?
+	// @ToDo: change TLambda to std::function<void(TType)>
 	template <typename TEntity, typename TLambda>
 	void forEachEntityOfType( TLambda&& lambda )
 	{

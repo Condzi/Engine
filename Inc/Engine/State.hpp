@@ -24,7 +24,7 @@ public:
 	};
 
 	const StateID Id = "unregistred";
-	StateMachine* StateMachine;
+	StateMachine* StateMachine = nullptr;
 
 	RULE_OF_FIVE( State );
 

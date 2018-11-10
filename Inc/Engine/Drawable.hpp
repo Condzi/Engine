@@ -45,7 +45,7 @@ protected:
 			return;
 
 		if ( !AffectedByView ) {
-			auto org = window.getView();
+			const auto org = window.getView();
 			window.setView( window.getDefaultView() );
 			window.draw( drawable );
 			window.setView( org );
@@ -72,7 +72,7 @@ public:
 	bool isAnimation = false;
 	AnimationInfo animationInfo;
 
-	int8_t getUpdatePriority() const
+	int8_t getUpdatePriority() const override
 	{
 		return UpdatePriority::Drawable;
 	}
