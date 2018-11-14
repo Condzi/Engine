@@ -136,10 +136,10 @@ TEST_CASE( "Bitmap Text", "[Assets]" )
 	sf::Sprite fontSprite;
 	fontSprite.setTexture( font.getTexture() );
 
-	text.setColors( sf::Color::Cyan );
-	text.setColor( sf::Color::Red, 0, 3 );
-	text.setColor( sf::Color::Green, 4, 5 );
-	text.setColor( sf::Color::Blue, 10, 4 );
+	text.setDefaultColor( sf::Color::Cyan );
+	text.setColorForIdx( sf::Color::Red, 0, 3 );
+	text.setColorForIdx( sf::Color::Green, 4, 5 );
+	text.setColorForIdx( sf::Color::Blue, 10, 4 );
 
 	auto& gw = con::Global.GameWindow;
 	gw.create( { 800,600 }, "" );

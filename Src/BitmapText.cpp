@@ -12,7 +12,7 @@ BitmapText::BitmapText( const std::string& string_, const BitmapFont& font_, con
 	string( string_ ),
 	font( &font_ )
 {
-	setColors( color_ );
+	setDefaultColor( color_ );
 	setPosition( pos );
 	update();
 }
@@ -29,13 +29,13 @@ void BitmapText::setFont( const BitmapFont& font_ )
 	update();
 }
 
-void BitmapText::setColor( sf::Color color, size_t idx, size_t count )
+void BitmapText::setColorForIdx( sf::Color color, size_t idx, size_t count )
 {
 	std::fill( colors.begin() + idx, colors.begin() + idx + count, color );
 	update();
 }
 
-void BitmapText::setColors( sf::Color color )
+void BitmapText::setDefaultColor( sf::Color color )
 {
 	defaultColor = color;
 	std::fill( colors.begin(), colors.end(), color );
@@ -57,12 +57,12 @@ sf::Color BitmapText::getDefaultColor() const
 	return defaultColor;
 }
 
-sf::Color BitmapText::getColor( size_t index ) const
+sf::Color BitmapText::getColorAtIdx( size_t index ) const
 {
 	return colors.at( index );
 }
 
-const std::vector<sf::Color>& BitmapText::getColors() const
+const std::vector<sf::Color>& BitmapText::getLettersColors() const
 {
 	return colors;
 }

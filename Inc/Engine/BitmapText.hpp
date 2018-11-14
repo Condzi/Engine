@@ -27,15 +27,14 @@ public:
 
 	void setString( const std::string& string_ );
 	void setFont( const BitmapFont& font_ );
-	void setColor( sf::Color color, size_t idx, size_t count = 1 );
-	void setColors( sf::Color color );
+	void setColorForIdx( sf::Color color, size_t idx, size_t count = 1 );
+	void setDefaultColor( sf::Color color );
 
 	const std::string& getString() const;
 	const BitmapFont* getFont() const;
 	sf::Color getDefaultColor() const;
-	// @ToDo: Beter names. getColorAtIdx( index )? same with set colors
-	sf::Color getColor( size_t index ) const;
-	const std::vector<sf::Color>& getColors() const;
+	sf::Color getColorAtIdx( size_t index ) const;
+	const std::vector<sf::Color>& getLettersColors() const;
 
 	RectF getLocalBounds() const;
 	RectF getGlobalBounds() const;
